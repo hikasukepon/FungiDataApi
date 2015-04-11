@@ -19,14 +19,14 @@ class get_data
 	function debug_array()
 	{
 		echo "<pre>";
-		var_dump(json_decode($GLOBALS['json'], true));
+		print_r(json_decode($GLOBALS['json'], true));
 		echo "</pre>";
 	}
 
 	function debug_object()
 	{
 		echo "<pre>";
-		var_dump(json_decode($GLOBALS['json']));
+		print_r((object)json_decode($GLOBALS['json']));
 		echo "</pre>";
 	}
 
@@ -37,7 +37,7 @@ class get_data
 
 	function return_object()
 	{
-		return json_decode($GLOBALS['json']);
+		return (object)json_decode($GLOBALS['json']);
 	}
 } 
 
@@ -51,14 +51,13 @@ class get_data
 * $variable -> s_query = ' SEARCH QUERY ';
 * $variable -> s_where = ' SEARCH PLACE ';
 * $variable -> search(); // array( [0] => array( 'name' => '', 'gakmei' => '', ............
-* $variable -> place_list(); // array( 'date', 'name',  ............
 */
 class search_data
 {
 	public $s_query;
 	public $s_where;
 	
-	function search()
+	function search($k = '')
 	{
 		$array = array();
 
@@ -67,8 +66,20 @@ class search_data
 
 		foreach ($arr as $key => $value) {
 			if(isset($value[$this -> s_where])) {
-				if(stristr($value[$this -> s_where], $this -> s_query)) {
-					$array[] = $value;
+				if($k == 'true') {
+					if($value[$this -> s_where] == $this -> s_query) {
+						$array[] = $value;
+					}
+				} elseif($k == 'true') {
+					foreach ($value as $kk => $val) {
+						if(stristr($val, $this -> s_query)) {
+							$array[] = $value;
+						}
+					}
+				} else {
+					if(stristr($value[$this -> s_where], $this -> s_query)) {
+						$array[] = $value;
+					}
 				}
 			} else {
 				return false;
@@ -77,11 +88,44 @@ class search_data
 
 		return $array;
 	}
-	
-	function place_list()
+
+	function date_search($date)
 	{
-		$arr = array('date' , 'name' , 'gakumei' , 'betsumei' , 'bunrui' , 'num' , 'setsumei' , 'setsumei_d' , 'bunken' , 'bunken_2');
-		return $arr;
+		$array = array();
+
+		$json = new get_data();
+		$arr = $json -> return_array();
+
+		foreach ($arr as $key => $value) {
+			$date_2 = date($date, strtotime($value['date']));
+			if(stristr($date_2, $this -> s_query)) {
+				$array[] = $value;
+			}
+		}
+
+		return $array;
+	}
+
+	function o_search($k = '')
+	{
+		$array = array();
+
+		$json = new get_data();
+		$arr = $json -> return_array();
+
+		foreach ($arr as $key => $value) {
+			if($k == 'true') {
+				if(stristr($value['keisai'], $this -> s_query) || stristr($value['keisai_2'], $this -> s_query)) {
+					$array[] = $value;
+				}
+			} else {
+				if(stristr($value['gak'], $this -> s_query) || stristr($value['gakmei'], $this -> s_query)) {
+					$array[] = $value;
+				}
+			}
+		}
+
+		return $array;
 	}
 }
 
@@ -149,7 +193,3 @@ class lists
 		return $array;
 	}
 }
-
-/*echo "<pre>";
-print_r($json);
-echo "</pre>";*/
