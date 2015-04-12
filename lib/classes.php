@@ -109,10 +109,8 @@ class search_data
 	function o_search($k = '')
 	{
 		$array = array();
-
 		$json = new get_data();
 		$arr = $json -> return_array();
-
 		foreach ($arr as $key => $value) {
 			if($k == 'true') {
 				if(stristr($value['keisai'], $this -> s_query) || stristr($value['keisai_2'], $this -> s_query)) {
@@ -124,7 +122,6 @@ class search_data
 				}
 			}
 		}
-
 		return $array;
 	}
 }
@@ -149,10 +146,16 @@ class lists
 
 		$json = new get_data();
 		$arr = $json -> return_array();
+		$i = 1;
 
 		foreach ($arr as $key => $value) {
 			if(isset($value[$this -> l_where])) {
-				$array[] = $value[$this -> l_where];
+				if($value['name'] == '和名なし') {
+					$array[] = $value[$this -> l_where] . $i;
+					$i++;
+				} else {
+					$array[] = $value[$this -> l_where];
+				}
 			} else {
 				return false;
 			}
@@ -173,10 +176,16 @@ class lists
 
 		$json = new get_data();
 		$arr = $json -> return_array();
+		$i = 1;
 
 		foreach ($arr as $key => $value) {
 			if(isset($value[$this -> l_where])) {
-				$array[] = $value[$this -> l_where];
+				if($value['name'] == '和名なし') {
+					$array[] = $value[$this -> l_where] . $i;
+					$i++;
+				} else {
+					$array[] = $value[$this -> l_where];
+				}
 			} else {
 				return false;
 			}

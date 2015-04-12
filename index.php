@@ -513,7 +513,7 @@ EOT;
 				echo "</ul>";
 				?></pre>
 				<hr>
-				つまり，<code>search('all')</code>にすると，完全一致検索になります．<br>
+				つまり，<code>search('all')</code>にすると，全項目対象検索になります．<br>
 				<mark>注意:引数は，必ず小文字の半角英数字で指定してください．</mark>
 			</div>
 		<h4 id="2-2-4"><a href="#2-2-4">#2-2-4</a> 日時検索をする</h4>
@@ -543,6 +543,46 @@ EOT;
 				print_r($arr);
 				?></pre>
 				このように，4月10日に採れたきのこだけが抽出できているのが分かります．
+				<hr>
+				それでは，「いつなにがとれたか」を集計してみましょう．
+				<?php
+				$code = <<<EOT
+\$list = array();
+for (\$i=1; \$i < 12; \$i++) { 
+	\$variable -> s_query = \$i."月";
+	\$arr = \$variable -> date_search('n月');
+	echo "<h3>".\$i."月にとれたきのこ</h3>";
+	echo "<ul>";
+	foreach (\$arr as \$key => \$value) {
+		\$list[] = \$value['name'];
+	}
+	\$list = array_unique(\$list);
+	foreach (\$list as \$key => \$value) {
+		echo "<li>".\$value."</li>";
+	}
+	echo "</ul>";
+}
+EOT;
+				hl($code);
+				?>
+				実行結果
+				<pre><?php
+				$list = array();
+				for ($i=1; $i < 12; $i++) { 
+					$variable -> s_query = $i."月";
+					$arr = $variable -> date_search('n月');
+					echo "<h3>".$i."月にとれたきのこ</h3>";
+					echo "<ul>";
+					foreach ($arr as $key => $value) {
+						$list[] = $value['name'];
+					}
+					$list = array_unique($list);
+					foreach ($list as $key => $value) {
+						echo "<li>".$value."</li>";
+					}
+					echo "</ul>";
+				}
+				?></pre>
 			</div>
 		<h4 id="2-2-5"><a href="#2-2-5">#2-2-5</a> 学名検索・文献検索をする</h4>
 			<div>
