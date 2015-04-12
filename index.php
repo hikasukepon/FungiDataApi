@@ -75,16 +75,13 @@ function hl($code) {
 	a.none {
 		border: none;
 		font-family: inherit;
-		font-size: inherit;
+		font-size: 0.7em;
 		color: inherit;
 		background: none;
 		cursor: pointer;
 		padding: 10px;
 		display: inline-block;
-		margin: 15px 30px;
-		text-transform: uppercase;
 		letter-spacing: 1px;
-		font-weight: 700;
 		outline: none;
 		position: relative;
 		-webkit-transition: all 0.3s;
@@ -184,7 +181,11 @@ function hl($code) {
 	</script>
 </head>
 <body>
-<h1>きのこ調査プロジェクトAPI リファレンス<a href="//github.com/hikasukepon/FungiDataAPI" class="none"><span class="octicon octicon-logo-github"></span><span class="octicon octicon-mark-github"></span></a></h1>
+<h1>きのこ調査プロジェクトAPI リファレンス
+	<a href="//github.com/hikasukepon/FungiDataAPI" class="none">View On <span class="octicon octicon-logo-github"></span></a>
+	<a href="//github.com/hikasukepon/FungiDataApi/zipball/master" class="none">Download Zip<span class="octicon octicon-file-zip"></span></a>
+	<a href="//github.com/hikasukepon/FungiDataApi/tarball/master" class="none">Download tar.gz<span class="octicon octicon-file-zip"></span></a>
+</h1>
 きのこ調査プロジェクトこと「KCP」(「きの調」とも言う)のAPIです．<br>
 本体は<a href="//hkcp.ga">ここ</a>．<br>
 まだ作成中です.<br>
@@ -286,7 +287,7 @@ include("lib/api.php");
 
 /* sorce code */
 $code = <<<EOT
-include("data_api/lib/api.php");
+include("lib/api.php");
 EOT;
 hl($code);
 
