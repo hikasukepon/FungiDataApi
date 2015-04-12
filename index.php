@@ -14,6 +14,7 @@ function hl($code) {
 	<script type="text/javascript" src="//lib.hikaru.red/jquery.js"></script>
 	<script type="text/javascript" src="http://2inc.org/wp-content/uploads/2012/02/smoothscroll/js/jquery.smoothScroll.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="octicons/octicons.css">
 	<style>
 	body ,html {
 		background: #eee;
@@ -70,6 +71,54 @@ function hl($code) {
 	}
 	a:hover {
 		border-bottom-color: transparent;
+	}
+	a.none {
+		border: none;
+		font-family: inherit;
+		font-size: inherit;
+		color: inherit;
+		background: none;
+		cursor: pointer;
+		padding: 10px;
+		display: inline-block;
+		margin: 15px 30px;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		font-weight: 700;
+		outline: none;
+		position: relative;
+		-webkit-transition: all 0.3s;
+		-moz-transition: all 0.3s;
+		transition: all 0.3s;
+		background: #cb4e4e;
+		color: #fff;
+		box-shadow: 0 6px #ab3c3c;
+		-webkit-transition: none;
+		-moz-transition: none;
+		transition: none;
+		transition: none;
+		-webkit-transition:none;
+		-moz-transition:none;
+		-o-transition:none;
+		-ms-transition:none;
+		color:#FFF;
+		border: none;
+		border-radius: 5px;
+	}
+	a.none:after {
+		content: '';
+		position: absolute;
+		z-index: -1;
+		-webkit-transition: all 0.3s;
+		-moz-transition: all 0.3s;
+		transition: all 0.3s;
+	}
+	a.none:hover {
+		box-shadow: 0 4px #ab3c3c;
+		top: 2px;
+	}
+	a > :before {
+		font-size: 1.5em;
 	}
 	h2:target {
 		color:red;
@@ -135,33 +184,11 @@ function hl($code) {
 	</script>
 </head>
 <body>
-<h1>きのこ調査プロジェクトAPI リファレンス</h1>
+<h1>きのこ調査プロジェクトAPI リファレンス<a href="//github.com/hikasukepon/FungiDataAPI" class="none"><span class="octicon octicon-logo-github"></span><span class="octicon octicon-mark-github"></span></a></h1>
 きのこ調査プロジェクトこと「KCP」(「きの調」とも言う)のAPIです．<br>
 本体は<a href="//hkcp.ga">ここ</a>．<br>
 まだ作成中です.<br>
-<!--hr>
-<h2>メニュー</h2>
-<div class="menu">
-	<ul>
-		<li><a>#1 はじめる前に</a></li>
-		<ul>
-			<li><a href="#1-1">#1-1 ダウンロード</a></li>
-			<li><a href="#1-2">#1-2 インクルード</a></li>
-		</ul>
-		<li><a>#2 クラス</a></li>
-		<ul>
-			<li><a>#2-1 get_dataクラス</a></li>
-			<ul>
-				<li><a href="#2-1-1">#2-1-1 debug_array関数</a></li>
-				<li><a href="#2-1-2">#2-1-2 debug_object関数</a></li>
-				<li><a href="#2-1-3">#2-1-3 return_array関数</a></li>
-				<li><a href="#2-1-4">#2-1-4 return_object関数</a></li>
-			</ul>
-			<li><a>#2-2 search_dataクラス</a></li>
-			<li><a>#2-3 listsクラス</a></li>
-		</ul>
-	</ul>
-</div-->
+質問などは<a href="//twitter.com/hikasukepon">@hikasukepon</a>へお願いします．
 <hr>
 <h2 id="0"><a href="#0">#0</a> 返されるデータの解説</h2>
 	<div>
@@ -687,3 +714,10 @@ EOT;
 				変数の説明などについては，<a href="#2-3-1">#2-3-1 データのリストを取得する</a>を見てください．
 			</div>
 		</div>
+	</div>
+		<hr>
+
+<h2 id="3"><a href="#3">#3</a> できること</h2>
+<div>
+	KCP WEB.APIでできることを，デモを交えて説明します．
+</div>
