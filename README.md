@@ -1,5 +1,6 @@
 # FungiDataApi
 KCP(hkcp.ga) API.
+[Site](//hkcp.cf/web.api)
 
 ---
 
