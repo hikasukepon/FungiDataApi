@@ -27,34 +27,55 @@ function hl($code) {
 		content: "▼";
 		color:#999;
 	}
-	pre ,code {
-	  font-family: 'Source Code Pro', sans-serif;
-	}
 	pre {
-	  height: 100px;
-	  overflow:auto;
-	  width: 700px;
-	  padding-left: 1em;
-	  color: #666666;
-	  background-color: #CCC;
-	  white-space: -moz-pre-wrap; /* Mozilla */
-	  white-space: -pre-wrap;     /* Opera 4-6 */
-	  white-space: -o-pre-wrap;   /* Opera 7 */
-	  white-space: pre-wrap;      /* CSS3 */
-	  word-wrap: break-word;      /* IE 5.5+ */
-	  resize: both;
+		display: block;
+		padding: 9.5px;
+		margin: 0 0 10px;
+		font-size: 13px;
+		line-height: 1.42857143;
+		color: #333;
+		word-break: break-all;
+		word-wrap: break-word;
+		background-color: #f5f5f5;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		padding: 9px 14px;
+		margin-bottom: 14px;
+		background-color: #f7f7f9;
+		border: 1px solid #e1e1e8;
+		border-radius: 4px;
+		white-space: -moz-pre-wrap; /* Mozilla */
+		white-space: -pre-wrap;     /* Opera 4-6 */
+		white-space: -o-pre-wrap;   /* Opera 7 */
+		white-space: pre-wrap;      /* CSS3 */
+		word-wrap: break-word;      /* IE 5.5+ */
+		font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+		max-height: 500px;
+		overflow: auto;
 	}
 	hr {
 		border-color: rgba(255,255,255,0.5);
 	}
 
-	/*code {
-	  font-family: monospace;
-	  font-weight: normal;
-	  line-height: 150%;
-	  text-align: left;
-	  margin-bottom: 10px;
-	}*/
+	code {
+		padding: 0;
+		padding-top: 0.2em;
+		padding-bottom: 0.2em;
+		margin: 0;
+		font-size: 85%;
+		background-color: rgba(0,0,0,0.04);
+		border-radius: 3px;
+		font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+	}
+	pre > code {
+		padding: initial;
+		padding-top: initial;
+		padding-bottom: initial;
+		margin: initial;
+		font-size: inherit;
+		background-color: initial;
+		border-radius: initial;
+	}
 
 	h1,h2,h3,h4,h5,h6 {
 		font-weight: 100;
@@ -144,9 +165,9 @@ function hl($code) {
 		display:none;
 
 	}
-	ul ul, ul ul ul {
+	/*ul ul, ul ul ul {
 		display: none;
-	}
+	}*/
 	ul > li {
 		cursor: pointer;
 	}
@@ -156,6 +177,21 @@ function hl($code) {
 	table.none {
 		display:none;
 	}
+	.alert {
+		background: #fff6bf; /* 画像 */
+		text-align: left;
+		padding: 5px 20px 5px 45px;
+		border-top: 2px solid #ffd324;
+		border-bottom: 2px solid #ffd324;
+	}/*
+	._head {
+		position: fixed;
+		height:500px;
+		overflow: hidden;
+	}
+	._main {
+		padding-top:500px;
+	}*/
 	</style>
 	<script>
 	$(function(){
@@ -177,20 +213,27 @@ function hl($code) {
 				$(this).next().fadeIn();
 			}
 		});
+		$("a[href^=#]").click(function(){
+			var attr = $(this).attr("href");
+			$(attr).click();
+		});
 	});
 	</script>
 </head>
 <body>
-<h1>きのこ調査プロジェクトAPI リファレンス
-	<a href="//github.com/hikasukepon/FungiDataAPI" class="none">View On <span class="octicon octicon-logo-github"></span></a>
-	<a href="//github.com/hikasukepon/FungiDataApi/zipball/master" class="none">Download Zip<span class="octicon octicon-file-zip"></span></a>
-	<a href="//github.com/hikasukepon/FungiDataApi/tarball/master" class="none">Download tar.gz<span class="octicon octicon-file-zip"></span></a>
-</h1>
-きのこ調査プロジェクトこと「KCP」(「きの調」とも言う)のAPIです．<br>
-本体は<a href="//hkcp.ga">ここ</a>．<br>
-まだ作成中です.<br>
-質問などは<a href="//twitter.com/hikasukepon">@hikasukepon</a>へお願いします．
-<hr>
+<header class="_head">
+	<h1>きのこ調査プロジェクトAPI リファレンス
+		<a href="//github.com/hikasukepon/FungiDataAPI" class="none">View On <span class="octicon octicon-logo-github"></span></a>
+		<a href="//github.com/hikasukepon/FungiDataApi/zipball/master" class="none">Download Zip<span class="octicon octicon-file-zip"></span></a>
+		<a href="//github.com/hikasukepon/FungiDataApi/tarball/master" class="none">Download tar.gz<span class="octicon octicon-file-zip"></span></a>
+	</h1>
+	きのこ調査プロジェクトこと「KCP」(「きの調」とも言う)のAPIです．<br>
+	本体は<a href="//hkcp.ga">ここ</a>．<br>
+	まだ作成中です.<br>
+	質問などは<a href="//twitter.com/hikasukepon">@hikasukepon</a>へお願いします．<br>
+	<p class="alert"><b>注意</b>：過度にサーバーに負荷をかけるようなことはしないでください．された場合は，そのIPアドレスからのアクセスをブロックします．ご了承ください．</p>  
+</header>
+<section class="_main">
 <h2 id="0"><a href="#0">#0</a> 返されるデータの解説</h2>
 	<div>
 	返されるデータは，関数やクラスによって多種多様ですが，ここでは主にget_dataクラス，search_dataクラスの返り値を解説しています．
@@ -266,6 +309,11 @@ function hl($code) {
 			<td width="150">画像のURL．これは，何個も続く可能性があります．</td>
 			<td>http://img.hkcp.cf/path.jpg</td>
 		</tr>
+		<tr>
+			<td>id</td>
+			<td width="150">データID．ひとつひとつのデータに個別にふられています．データを引用するときは，このIDを参照します．</td>
+			<td>22</td>
+		</tr>
 	</table>
 	</div>
 	<hr>
@@ -274,7 +322,9 @@ function hl($code) {
 	<h3 id="1-1"><a href="#1-1">#1-1</a>ダウンロード</h3>
 		<div>
 		このAPIはオープンソースです．<a href="//github.com/hikasukepon/FungiDataAPI">Github</a>からダウンロードしてください．<br>
-		ライセンスはMIT LICENSEです．自由に変えたり，ダウンロードしたりしてください．
+		ライセンスはMIT LICENSEです．自由に変えたり，ダウンロードしたりしてください．<br>
+		また，コマンドラインからのインストールもできます．その場合は次のコードをコマンドとして入力してください．
+		<pre><span style="color: #999;">$ </span>git clone <span style="color: #666">https://github.com/hikasukepon/FungiDataAPI.git</span></pre>
 		</div>
 	<h3 id="1-2"><a href="#1-2">#1-2</a> インクルード</h3>
 		<div>
@@ -287,16 +337,48 @@ include("lib/api.php");
 
 /* sorce code */
 $code = <<<EOT
-include("lib/api.php");
+include("FungiDataAPI/lib/api.php");
 EOT;
 hl($code);
 
 /* --/include-- */
 
 
-echo "</div></div><hr>";
+echo "</div>";
 
 ?>
+	<h3 id="1-3"><a href="#1-3">#1-3</a> ファイル構造</h3>
+		<div>
+		エラーが出るときは，ファイルがちゃんと存在するかどうか確かめてください．フォルダ名は赤字になっています．
+		<ul>
+			<li>
+				<span style="color:red;">FungiDataAPI/</span>
+				<ul>
+					<li>index.php　（このページ）</li>
+					<li>
+						<span style="color:red;">lib/　（API本体）</span>
+						<ul>
+							<li>api.php　（API）</li>
+							<li>classes.php　（クラス・関数）</li>
+						</ul>
+					</li>
+					<li>
+						<span style="color:red;">examples/　（ソースコードのサンプル）</span>
+						<ul>
+							<li>index.html　（サンプルファイルリスト）</li>
+						</ul>
+					</li>
+					<li>
+						<span style="color:red;">octicons/　（アイコンフォント）</span>
+						<ul>
+							<li>フォントファイル・CSSファイル一群</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		</div>
+</div><hr>
 <h2 id="2"><a href="#2">#2</a> クラス</h2>
 	<div>
 		本APIの機能は，基本的に，クラス・関数で実装されています．
@@ -308,6 +390,21 @@ echo "</div></div><hr>";
 		$variable = new get_data();
 		$code = <<<EOT
 \$variable = new get_data();
+EOT;
+		hl($code);
+		?>
+		<Br>
+		オプションとして，データのリミットを指定することができます．<br>
+		<?php
+		$code = <<<EOT
+// 普通に全データを取得する
+\$variable -> 関数名();
+
+// リミットを指定する．このときの数値は，データIDを指定する．この場合は「データID 10まで」
+\$variable -> 関数名( '10' );
+
+// 範囲を指定する．この場合は「データID 10から20まで」
+\$variable -> 関数名( '10', '20' );
 EOT;
 		hl($code);
 		?>
@@ -326,7 +423,7 @@ EOT;
 				?>
 				実行結果
 				<?php
-				$variable -> debug_array();
+				$variable -> debug_array(1);
 				?>
 			</div>
 		<h4 id="2-1-2"><a href="#2-1-2">#2-1-2</a> debug_object関数</h4>
@@ -381,12 +478,51 @@ EOT;
 				print_r( $variable -> return_object() );
 				?></pre>
 			</div>
+		<h4 id="2-1-5"><a href="#2-1-5">#2-1-5</a> post_id関数</h4>
+			<div>
+				特定のIDの情報を取得することができます．引数にIDを指定する必要があります．
+				<?php
+				$code = <<<EOT
+print_r( \$variable -> post_id('34') );
+EOT;
+				hl($code);
+				?>
+				実行結果
+				<pre><?php
+				print_r( $variable -> post_id('34') );
+				?></pre>
+			</div>
+		<h4 id="2-1-5"><a href="#2-1-5">#2-1-5</a> get_imgurl関数</h4>
+			<div>
+				指定したIDの画像URLを取得することができます．なお，IDは複数指定が可能です．
+				<?php
+				$code = <<<EOT
+// IDをひとつだけ指定する場合
+print_r( \$variable -> get_imgurl( '34' ) );
+
+echo '\\n\\n';
+
+// IDを複数指定する場合
+print_r( \$variable -> get_imgurl( array( '34', '55', '89', '92' ) ) );
+EOT;
+				hl($code);
+				?>
+				実行結果
+				<pre><?php
+				// IDをひとつだけ指定する場合
+				print_r( $variable -> get_imgurl( '34' ) );
+
+				echo '\n\n';
+
+				// IDを複数指定する場合
+				print_r( $variable -> get_imgurl( array( '34', '55', '89', '92' ) ) );
+				?></pre>
+			</div>
 		</div>
 	<h3 id="2-2"><a href="#2-2">#2-2</a> search_dataクラス</h3>
 		<div>
 		データを検索することができるクラスです．使用するときは，次のように書いてください．<br>
 		(<code>$variable</code>は変数名を変更しても構いません．)<br>
-		現在開発中です．
 		<?php
 		$variable = new search_data();
 		$code = <<<EOT
@@ -408,37 +544,8 @@ EOT;
 				hl($code);
 				?>
 				<code>s_query</code>には検索させたい文字列を，<code>s_where</code>には検索する場所を指定します．<br>
-				s_whereに格納することができる文字列は，以下の通りです．
-				<table border="1" cellspacing="0" cellpadding="5">
-					<tr>
-						<th>文字列</th>
-						<th width="150">説明</th>
-					</tr>
-					<tr>
-						<td>name</td>
-						<td width="150">標準和名</td>
-					</tr>
-					<tr>
-						<td>basho</td>
-						<td width="150">採取された場所</td>
-					</tr>
-					<tr>
-						<td>dis</td>
-						<td width="150">キノコの説明</td>
-					</tr>
-					<tr>
-						<td>bunrui</td>
-						<td width="150">分類(亜門名〜属名まで)</td>
-					</tr>
-					<tr>
-						<td>bet</td>
-						<td width="150">別名</td>
-					</tr>
-					<tr>
-						<td>num</td>
-						<td width="150">分類番号．きのこの属の学名のアルファベット順ごとにふられています．</td>
-					</tr>
-				</table>
+				<code>s_where</code>には，<code>日付</code>　<code>学名</code>　<code>掲載文献1</code>　<code>掲載文献2</code>では検索できないので注意してください．<br>
+				<code>s_where</code>に格納することができる文字列は，<a href="#0">#0 返されるデータの説明</a>を参照してください．
 				上記のサンプルコードの場合は，<mark>和名検索</mark>で<mark>「アミガサタケ」</mark>という文字列を含むキノコを検索していますね．<br>
 				それでは，検索してみましょう．
 				<?php
@@ -571,46 +678,6 @@ EOT;
 				print_r($arr);
 				?></pre>
 				このように，4月10日に採れたきのこだけが抽出できているのが分かります．
-				<hr>
-				それでは，「いつなにがとれたか」を集計してみましょう．
-				<?php
-				$code = <<<EOT
-\$list = array();
-for (\$i=1; \$i < 12; \$i++) { 
-	\$variable -> s_query = \$i."月";
-	\$arr = \$variable -> date_search('n月');
-	echo "<h3>".\$i."月にとれたきのこ</h3>";
-	echo "<ul>";
-	foreach (\$arr as \$key => \$value) {
-		\$list[] = \$value['name'];
-	}
-	\$list = array_unique(\$list);
-	foreach (\$list as \$key => \$value) {
-		echo "<li>".\$value."</li>";
-	}
-	echo "</ul>";
-}
-EOT;
-				hl($code);
-				?>
-				実行結果
-				<pre><?php
-				$list = array();
-				for ($i=1; $i < 12; $i++) { 
-					$variable -> s_query = $i."月";
-					$arr = $variable -> date_search('n月');
-					echo "<h3>".$i."月にとれたきのこ</h3>";
-					echo "<ul>";
-					foreach ($arr as $key => $value) {
-						$list[] = $value['name'];
-					}
-					$list = array_unique($list);
-					foreach ($list as $key => $value) {
-						echo "<li>".$value."</li>";
-					}
-					echo "</ul>";
-				}
-				?></pre>
 			</div>
 		<h4 id="2-2-5"><a href="#2-2-5">#2-2-5</a> 学名検索・文献検索をする</h4>
 			<div>
@@ -718,7 +785,28 @@ EOT;
 	</div>
 		<hr>
 
-<h2 id="3"><a href="#3">#3</a> できること</h2>
+<h2 id="3"><a href="#3">#3</a> 統計</h2>
 <div>
-	KCP WEB.APIでできることを，デモを交えて説明します．
+	データを素にして，統計します．統計用の関数があるので，それを使いましょう．<br>
+	この章では，特定のクラスを使いません．<br>
+	用途別にクラスが分かれているので，混乱しないよう注意してください．<!-- するかボケ！ -->
+				<hr>
+				<h3 id="3-1"><a href="#3-1">#3-1</a> いつなにがとれたか</h3>
+				<div>
+					それでは，「いつなにがとれたか」を集計してみましょう．単位を設定できます．
+					<?php
+					$code = <<<EOT
+\$variable = new search_data();
+\$arr = \$variable -> when();
+print_r(\$arr);
+EOT;
+					hl($code);
+					?>
+					実行結果
+					<pre><?php
+					$variable = new search_data();
+					$arr = $variable -> when();
+					print_r($arr);
+					?></pre>
+				</div>
 </div>

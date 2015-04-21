@@ -1,43 +1,183 @@
 <?php
-$json = include "get_json.php";
+$json = file_get_contents("http://hkcp.ga/ajax/api_json.php");
 
 
-
-/**
-* get data
-*
-* example
-* --------
-* $variable = new get_data();
-* $variable -> debug_array();  // dataArray
-* $variable -> debug_object(); // dataObject
-* $variable -> return_array();  // dataArray
-* $variable -> return_object(); // dataObject
-*/
 class get_data
 {
-	function debug_array()
+	function debug_array($limit = '', $too = '')
 	{
 		echo "<pre>";
-		print_r(json_decode($GLOBALS['json'], true));
+		$arr = array();
+		$array = json_decode($GLOBALS['json'], true);
+		foreach ($array as $key => $value) {
+			if(!empty($limit)) {
+				if (!empty($too)) {
+					if($limit < $key) {
+						if($key > $limit) {
+							break;
+						} else {
+							$value['id'] = $key;
+							$arr[$key] = $value;	
+						}
+					}
+				} else {
+					if($key > $limit) {
+						break;
+					} else {
+						$value['id'] = $key;
+						$arr[$key] = $value;	
+					}
+				}
+				
+			} else {
+				$value['id'] = $key;
+				$arr[$key] = $value;
+			}
+		}
+		print_r($arr);
 		echo "</pre>";
 	}
 
-	function debug_object()
+	function debug_object($limit = '', $too = '')
 	{
 		echo "<pre>";
-		print_r((object)json_decode($GLOBALS['json']));
+		$arr = array();
+		$array = json_decode($GLOBALS['json'], true);
+		foreach ($array as $key => $value) {
+			if(!empty($limit)) {
+				if (!empty($too)) {
+					if($limit < $key) {
+						if($key > $limit) {
+							break;
+						} else {
+							$value['id'] = $key;
+							$arr[$key] = (object)$value;	
+						}
+					}
+				} else {
+					if($key > $limit) {
+						break;
+					} else {
+						$value['id'] = $key;
+						$arr[$key] = (object)$value;	
+					}
+				}
+				
+			} else {
+				$value['id'] = $key;
+				$arr[$key] = (object)$value;
+			}
+		}
+		print_r((object)$arr);
 		echo "</pre>";
 	}
 
-	function return_array()
+	function return_array($limit = '', $too = '')
 	{
-		return json_decode($GLOBALS['json'], true);
+		$arr = array();
+		$array = json_decode($GLOBALS['json'], true);
+		foreach ($array as $key => $value) {
+			if(!empty($limit)) {
+				if (!empty($too)) {
+					if($limit < $key) {
+						if($key > $limit) {
+							break;
+						} else {
+							$value['id'] = $key;
+							$arr[$key] = $value;	
+						}
+					}
+				} else {
+					if($key > $limit) {
+						break;
+					} else {
+						$value['id'] = $key;
+						$arr[$key] = $value;	
+					}
+				}
+				
+			} else {
+				$value['id'] = $key;
+				$arr[$key] = $value;
+			}
+		}
+		return $arr;
 	}
 
-	function return_object()
+	function return_object($limit = '', $too = '')
 	{
-		return (object)json_decode($GLOBALS['json']);
+		$arr = array();
+		$array = json_decode($GLOBALS['json'], true);
+		foreach ($array as $key => $value) {
+			if(!empty($limit)) {
+				if (!empty($too)) {
+					if($limit < $key) {
+						if($key > $limit) {
+							break;
+						} else {
+							$value['id'] = $key;
+							$arr[$key] = (object)$value;	
+						}
+					}
+				} else {
+					if($key > $limit) {
+						break;
+					} else {
+						$value['id'] = $key;
+						$arr[$key] = (object)$value;	
+					}
+				}
+				
+			} else {
+				$value['id'] = $key;
+				$arr[$key] = (object)$value;
+			}
+		}
+		return $arr;
+	}
+
+	function post_id($id)
+	{
+		$arr = array();
+		$array = json_decode($GLOBALS['json'], true);
+		foreach ($array as $key => $value) {
+			if($key == $id) {
+				$value['id'] = $key;
+				$arr = $value;
+			}
+		}
+		if(empty($arr)) {
+			return false;
+		} else {
+			return $arr;
+		}
+	}
+	function get_imgurl($id)
+	{
+		$arr = array();
+		$array = json_decode($GLOBALS['json'], true);
+		if (is_array($id)) {
+			foreach ($id as $value) {
+				foreach ($array as $key_2 => $value_2) {
+					if($value == $key_2) {
+						for ($i=0; $i < $value_2['img_num']; $i++) { 
+							$param = "img_". $i;
+							$arr[$value][] = $value_2[ $param ];
+						}
+					}
+				}
+			}
+		} else {
+			foreach ($array as $key => $value) {
+				if($key == $id) {
+					for ($i=0; $i < $value['img_num']; $i++) { 
+						$param = "img_". $i;
+						$arr[] = $value[ $param ];
+					}
+				}
+			}
+		}
+		return $arr;
 	}
 } 
 
@@ -123,6 +263,24 @@ class search_data
 			}
 		}
 		return $array;
+	}
+
+	function when()
+	{
+		$variable = new search_data();
+		$arr = '';
+		$list = array();
+		for ($i=1; $i <= 12; $i++) { 
+			$variable -> s_query = $i."月";
+			$arr = $variable -> date_search('n月');
+			foreach ($arr as $key => $value) {
+				$list[$i][] = $value['name'];
+			}
+		}
+		foreach ($list as $key => $value) {
+			$value = array_unique($value);
+		}
+		return $list;
 	}
 }
 
