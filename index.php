@@ -9,6 +9,9 @@ function hl($code) {
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
+	<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+
 	<title>KCP API</title>
 	<meta charset="utf-8">
 	<script type="text/javascript" src="//lib.hikaru.red/jquery.js"></script>
@@ -500,7 +503,7 @@ EOT;
 // IDをひとつだけ指定する場合
 print_r( \$variable -> get_imgurl( '34' ) );
 
-echo '\\n\\n';
+echo "\\n\\n";
 
 // IDを複数指定する場合
 print_r( \$variable -> get_imgurl( array( '34', '55', '89', '92' ) ) );
@@ -512,7 +515,7 @@ EOT;
 				// IDをひとつだけ指定する場合
 				print_r( $variable -> get_imgurl( '34' ) );
 
-				echo '\n\n';
+				echo "\n\n";
 
 				// IDを複数指定する場合
 				print_r( $variable -> get_imgurl( array( '34', '55', '89', '92' ) ) );
@@ -788,24 +791,28 @@ EOT;
 <h2 id="3"><a href="#3">#3</a> 統計</h2>
 <div>
 	データを素にして，統計します．統計用の関数があるので，それを使いましょう．<br>
-	この章では，特定のクラスを使いません．<br>
-	用途別にクラスが分かれているので，混乱しないよう注意してください．<!-- するかボケ！ -->
+	この賞では，クラス<code>statistics</code>を使います．以下のように書いてください．
+	<?php
+	$variable = new statistics();
+	$code = <<<EOT
+\$variable = new statistics();
+EOT;
+	hl($code);
+	?>
 				<hr>
 				<h3 id="3-1"><a href="#3-1">#3-1</a> いつなにがとれたか</h3>
 				<div>
 					それでは，「いつなにがとれたか」を集計してみましょう．単位を設定できます．
 					<?php
 					$code = <<<EOT
-\$variable = new search_data();
-\$arr = \$variable -> when();
+\$arr = \$variable -> when('日');
 print_r(\$arr);
 EOT;
 					hl($code);
 					?>
 					実行結果
 					<pre><?php
-					$variable = new search_data();
-					$arr = $variable -> when();
+					$arr = $variable -> when('日');
 					print_r($arr);
 					?></pre>
 				</div>

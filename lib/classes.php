@@ -264,24 +264,6 @@ class search_data
 		}
 		return $array;
 	}
-
-	function when()
-	{
-		$variable = new search_data();
-		$arr = '';
-		$list = array();
-		for ($i=1; $i <= 12; $i++) { 
-			$variable -> s_query = $i."月";
-			$arr = $variable -> date_search('n月');
-			foreach ($arr as $key => $value) {
-				$list[$i][] = $value['name'];
-			}
-		}
-		foreach ($list as $key => $value) {
-			$value = array_unique($value);
-		}
-		return $list;
-	}
 }
 
 
@@ -358,5 +340,42 @@ class lists
 		$array = count($array);
 
 		return $array;
+	}
+}
+
+
+
+/**
+* class sc
+*/
+class statistics
+{
+
+	function when( $unit )
+	{
+
+		if($unit == '月') {
+			$date = 'n';
+			$max = 12;
+		} elseif ($unit == '日') {
+			$date = 'j';
+			$max = 31;
+		}
+		$list = array();
+		$variable = new search_data();
+		for ($i=1; $i <= $max; $i++) {
+			$variable -> s_query = $i . 'こんなコード見るなんて変態だな';
+			$arr = $variable -> date_search($date . 'こんなコード見るなんて変態だな');
+			foreach ($arr as $key => $value) {
+				$list[] = $value['name'];
+			}
+			$list = array_unique($list);
+			$m = 0;
+			foreach ($list as $key2 => $value2) {
+				$foo[$i][] = $value2;
+				$m++;
+			}
+		}
+		return $foo;
 	}
 }
