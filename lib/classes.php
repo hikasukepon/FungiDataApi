@@ -179,6 +179,18 @@ class get_data
 		}
 		return $arr;
 	}
+	function latest()
+	{
+		$arr = array();
+		$array = json_decode($GLOBALS['json'], true);
+		foreach ($array as $key => $value) {
+			$value['id'] = $key;
+			$arr[] = $value;
+		}
+		$arr_count = count($arr) - 1;
+		
+		return $arr[$arr_count];
+	}
 } 
 
 
@@ -192,11 +204,43 @@ class get_data
 * $variable -> s_where = ' SEARCH PLACE ';
 * $variable -> search(); // array( [0] => array( 'name' => '', 'gakmei' => '', ............
 */
+
+/*
+こうやる！
+
+$class = new search_data();
+
+$class->set_query($query);
+
+$class->query = '';
+*/
+
 class search_data
 {
+
 	public $s_query;
 	public $s_where;
+
+
+	// private $s_query;
+	// private $s_where;
 	
+	/*private $s_date = "2015-04-12";
+
+	public function __construct( $date='2015-04-13' /* 引数も入れられちゃう *\/ ){
+		// new ()　で呼び出されるのが__construct
+		$this->s_date = $date;
+
+	}*/
+
+	/*public function set_query($query = ''){
+		if(is_array($query)){
+			return false;
+		}
+		if($this->query = $query) return true;
+		return false;
+	}*/
+
 	function search($k = '')
 	{
 		$array = array();
@@ -206,11 +250,11 @@ class search_data
 
 		foreach ($arr as $key => $value) {
 			if(isset($value[$this -> s_where])) {
-				if($k == 'true') {
+				if($k == true) {
 					if($value[$this -> s_where] == $this -> s_query) {
 						$array[] = $value;
 					}
-				} elseif($k == 'true') {
+				} elseif($k == true) {
 					foreach ($value as $kk => $val) {
 						if(stristr($val, $this -> s_query)) {
 							$array[] = $value;
@@ -246,20 +290,14 @@ class search_data
 		return $array;
 	}
 
-	function o_search($k = '')
+	function o_search()
 	{
 		$array = array();
 		$json = new get_data();
 		$arr = $json -> return_array();
 		foreach ($arr as $key => $value) {
-			if($k == 'true') {
-				if(stristr($value['keisai'], $this -> s_query) || stristr($value['keisai_2'], $this -> s_query)) {
-					$array[] = $value;
-				}
-			} else {
-				if(stristr($value['gak'], $this -> s_query) || stristr($value['gakmei'], $this -> s_query)) {
-					$array[] = $value;
-				}
+			if(stristr($value['gak'], $this -> s_query) || stristr($value['gakmei'], $this -> s_query)) {
+				$array[] = $value;
 			}
 		}
 		return $array;
@@ -351,7 +389,7 @@ class lists
 class statistics
 {
 
-	function when( $unit )
+	function when( $unit = '' )
 	{
 
 		if($unit == '月') {
@@ -361,9 +399,15 @@ class statistics
 			$date = 'j';
 			$max = 31;
 		}
-		$list = array();
+
+		/*$variable = new search_data($date, $max);
+		$val = $variable->newfunc($i . 'こんなコード見るなんて変態だな');
+		return $val;*/
+
+
 		$variable = new search_data();
 		for ($i=1; $i <= $max; $i++) {
+			$list = array();
 			$variable -> s_query = $i . 'こんなコード見るなんて変態だな';
 			$arr = $variable -> date_search($date . 'こんなコード見るなんて変態だな');
 			foreach ($arr as $key => $value) {
@@ -373,6 +417,33 @@ class statistics
 			$m = 0;
 			foreach ($list as $key2 => $value2) {
 				$foo[$i][] = $value2;
+				$m++;
+			}
+		}
+		return $foo;
+	}
+	function when_where($unit='')
+	{
+
+		if($unit == '月') {
+			$date = 'n';
+			$max = 12;
+		} elseif ($unit == '日') {
+			$date = 'j';
+			$max = 31;
+		}
+		$variable = new search_data();
+		for ($i=1; $i <= $max; $i++) {
+			$list = array();
+			$variable -> s_query = $i . 'こんなコード見るなんて変態だな';
+			$arr = $variable -> date_search($date . 'こんなコード見るなんて変態だな');
+			foreach ($arr as $key => $value) {
+				$list[] = $value;
+			}
+			$list = array_unique($list);
+			$m = 0;
+			foreach ($list as $key2 => $value2) {
+				$foo[$value2['basho']][$i][] = $value2['name'];
 				$m++;
 			}
 		}

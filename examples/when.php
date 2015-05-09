@@ -1,4 +1,4 @@
-<?php include('head.php') ?>
+<?php include('head.php'); include('../lib/api.php'); ?>
 <div id="readme" class="boxed-group flush clearfix announce instapaper_body md">
     <h3>
       <span class="octicon octicon-book"></span>
@@ -43,21 +43,6 @@
         },
         series: [
 
-        <?php 
-	include("../lib/api.php");
-
-	$variable = new search_data();
-		$list = array();
-	for ($i=1; $i <= 12; $i++) { 
-		$arr = '';
-		$variable -> s_query = $i."月";
-		$arr = $variable -> date_search('n月');
-		foreach ($arr as $key => $value) {
-			$list[$value['basho']][$i][] = $value['name'];
-		}
-	}
-         ?>
-
         ]
     });
 });</script>
@@ -65,29 +50,9 @@
 <div id="container" style="min-width: 310px; margin: 0 auto"></div>
 <?php
 
-$variable = new search_data();
-for ($i=1; $i <= 12; $i++) { 
-	$arr = '';
-	$list = array();
-	$variable -> s_query = $i."月";
-	$arr = $variable -> date_search('n月');
-	echo "<h2>".$i."月にとれたきのこ</h2>";
-	echo "<ol class='task-list'>";
-	foreach ($arr as $key => $value) {
-		$list[] = $value['name'];
-	}
-	$list = array_unique($list);
-	$m = 0;
-	foreach ($list as $key2 => $value2) {
-		echo "<li>".$value2."</li>";
-		$m++;
-	}
-	if($m == 0) {
-		echo "<li>該当なし</li>";
-	}
-	echo "</ol>";
-	echo "<hr></hr>";
-}
+$variable = new statistics();
+$arr = $variable -> when('月');
+var_dump($arr);
 ?>
 </article>
 </div>
