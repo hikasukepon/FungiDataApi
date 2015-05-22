@@ -218,28 +218,17 @@ $class->query = '';
 class search_data
 {
 
-	public $s_query;
-	public $s_where;
+	protected $s_query;
+	protected $s_where;
 
-
-	// private $s_query;
-	// private $s_where;
+	function setquery($query, $where)
+	{
+		$this->s_query = $query;
+		$this->s_where = $where;
+	}
 	
-	/*private $s_date = "2015-04-12";
 
-	public function __construct( $date='2015-04-13' /* 引数も入れられちゃう *\/ ){
-		// new ()　で呼び出されるのが__construct
-		$this->s_date = $date;
 
-	}*/
-
-	/*public function set_query($query = ''){
-		if(is_array($query)){
-			return false;
-		}
-		if($this->query = $query) return true;
-		return false;
-	}*/
 
 	function search($k = '')
 	{

@@ -332,11 +332,9 @@ EOT;
 				データを検索することができます．<br>
 				まずは，変数<code>$s_query</code>と<code>$s_where</code>に文字列をセットしましょう．
 				<?php
-				$variable -> s_query = 'アミガサタケ';
-				$variable -> s_where = 'name';
+				$variable -> setquery('アミガサタケ', 'name');
 				$code = <<<EOT
-\$variable -> s_query = 'アミガサタケ';
-\$variable -> s_where = 'name';
+\$variable -> setquery('アミガサタケ', 'name');
 EOT;
 				hl($code);
 				?>
@@ -346,12 +344,10 @@ EOT;
 				上記のサンプルコードの場合は，<mark>和名検索</mark>で<mark>「アミガサタケ」</mark>という文字列を含むキノコを検索していますね．<br>
 				それでは，検索してみましょう．
 				<?php
-				$variable -> s_query = 'アミガサタケ';
-				$variable -> s_where = 'name';
+				$variable -> setquery('アミガサタケ', 'name');
 				$arr = $variable -> search();
 				$code = <<<EOT
-\$variable -> s_query = 'アミガサタケ';
-\$variable -> s_where = 'name';
+\$variable -> setquery('アミガサタケ', 'name');
 \$arr = \$variable -> search();
 print_r(\$arr);
 EOT;
@@ -390,12 +386,10 @@ EOT;
 			<div>
 				基本的には<a href="#2-2-1">#2-2-1 データを検索する</a>と同じコードですが，完全一致検索は，引数を指定することで実現することができます．
 				<?php
-				$variable -> s_query = 'トガリアミガサタケ';
-				$variable -> s_where = 'name';
+				$variable -> setquery('アミガサタケ', 'name');
 				$arr = $variable -> search(true);
 				$code = <<<EOT
-\$variable -> s_query = 'トガリアミガサタケ';
-\$variable -> s_where = 'name';
+\$variable -> setquery('アミガサタケ', 'name');
 \$arr = \$variable -> search(true);
 echo "<ul>";
 foreach (\$arr as \$key => \$value) {
@@ -418,34 +412,7 @@ EOT;
 			</div>
 		<h4 id="2-2-3"><a href="#2-2-3">#2-2-3</a> 全項目検索をする</h4>
 			<div>
-				基本的には<a href="#2-2-1">#2-2-1 データを検索する</a>と同じコードですが，全項目検索は，引数を指定することで実現することができます．
-				<?php
-				$variable -> s_query = 'タケ';
-				$variable -> s_where = 'name';
-				$arr = $variable -> search('all');
-				$code = <<<EOT
-\$variable -> s_query = 'キノコ';
-\$variable -> s_where = 'name';
-\$arr = \$variable -> search('all');
-echo "<ul>";
-foreach (\$arr as \$key => \$value) {
-	echo "<li>" . \$value['name'] . "が" . \$value['basho'] . "で採取されました．</li>";
-}
-echo "</ul>";
-EOT;
-				hl($code);
-				?>
-				実行結果
-				<pre><?php
-				echo "<ul>";
-				foreach ($arr as $key => $value) {
-					echo "<li class='none'>" . $value['name'] . "が" . $value['basho'] . "で採取されました．</li>";
-				}
-				echo "</ul>";
-				?></pre>
-				<hr>
-				つまり，<code>search('all')</code>にすると，全項目対象検索になります．<br>
-				<mark>注意:引数は，必ず小文字の半角英数字で指定してください．</mark>				</mark>
+				準備中です．引数に<code>'all'</code>を指定します．あとはソース見てちょうだい．
 			</div>
 		<h4 id="2-2-4"><a href="#2-2-4">#2-2-4</a> 日時検索をする</h4>
 			<div>
