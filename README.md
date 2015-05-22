@@ -25,8 +25,7 @@ $variable -> debug_array();
 #### search data
 ```php
 $variable = new search_data();
-$variable -> s_query = 'query';
-$variable -> s_where = 'place';
+$variable -> setquery('query', 'place');
 $arr = $variable -> search();
 print_r($arr);
 /*
